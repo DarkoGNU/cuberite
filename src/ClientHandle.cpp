@@ -2887,6 +2887,11 @@ void cClientHandle::SendPlayerMoveLook(void)
 	m_Protocol->SendPlayerMoveLook();
 }
 
+void cClientHandle::SendPlayerMoveLook             (Vector3d a_RelPos)
+{
+	m_Protocol->SendPlayerMoveLook(a_RelPos);
+}
+
 
 
 

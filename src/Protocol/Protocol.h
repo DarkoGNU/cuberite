@@ -408,6 +408,7 @@ public:
 	virtual void SendPlayerListUpdatePing       () = 0;
 	virtual void SendPlayerListUpdateDisplayName(const cPlayer & a_Player, const AString & a_CustomName) = 0;
 	virtual void SendPlayerMoveLook             (void) = 0;
+	virtual void SendPlayerMoveLook             (Vector3d a_RelPos) = 0;
 	virtual void SendPlayerPermissionLevel      (void) = 0;
 	virtual void SendPlayerPosition             (void) = 0;
 	virtual void SendPlayerSpawn                (const cPlayer & a_Player) = 0;

@@ -52,6 +52,7 @@ public:
 	virtual void SendMapData              (const cMap & a_Map, int a_DataStartX, int a_DataStartY) override;
 	virtual void SendPaintingSpawn        (const cPainting & a_Painting) override;
 	virtual void SendPlayerMoveLook       (void) override;
+	virtual void SendPlayerMoveLook             (Vector3d a_RelPos) override;
 	virtual void SendPlayerPermissionLevel() override;
 	virtual void SendPlayerSpawn          (const cPlayer & a_Player) override;
 	virtual void SendSoundEffect          (const AString & a_SoundName, double a_X, double a_Y, double a_Z, float a_Volume, float a_Pitch) override;

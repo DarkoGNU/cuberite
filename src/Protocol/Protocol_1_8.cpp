@@ -1180,6 +1180,21 @@ void cProtocol_1_8_0::SendPlayerMoveLook(void)
 	Pkt.WriteBEUInt8(0);
 }
 
+void cProtocol_1_8_0::SendPlayerMoveLook(Vector3d a_RelPos)
+{
+	cRoot::Get()->BroadcastChat("Relative!");
+	ASSERT(m_State == 3);  // In game mode?
+
+	cPacketizer Pkt(*this, pktPlayerMoveLook);
+	cPlayer * Player = m_Client->GetPlayer();
+	Pkt.WriteBEDouble(a_RelPos.x);
+	Pkt.WriteBEDouble(a_RelPos.y);
+	Pkt.WriteBEDouble(a_RelPos.z);
+	Pkt.WriteBEFloat(0.0f);
+	Pkt.WriteBEFloat(0.0f);
+	Pkt.WriteBEUInt8(-1);
+}
+
 
 
 

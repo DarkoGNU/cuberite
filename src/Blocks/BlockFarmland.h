@@ -57,20 +57,17 @@ public:
 				{
 					return false;
 				}
-
-				// The solution which will make the player fall through the ground:
-				// Entity.SetPosition(Entity.GetPosition().addedY(FullHeightDelta));
-
-				// The sketchy solution. It will almost always completely stop the player:
-				// Entity.TeleportToCoords(Entity.GetPosX(), Entity.GetPosY() + FullHeightDelta, Entity.GetPosZ());
-
-				// Another sketchy solution. It sometimes stops the player completely.
-				// It sometimes causes weird stutter
 				Entity.AddPosY(FullHeightDelta);
+
+				// Players need a packet that will update their position
 				if (Entity.IsPlayer())
 				{
 					auto Player = static_cast<cPlayer *>(&Entity);
-					Player->GetClientHandle()->SendPlayerMoveLook();
+					// This works, but it's much worse than Vanilla.
+					// This can be easily improved by implementing relative
+					// "Player Position And Look" packets! See
+					// https://wiki.vg/Protocol#Player_Position_And_Look_.28clientbound.29
+					Player->GetClientHandle()->SendPlayerMoveLook(Vector3d(0, FullHeightDelta, 0));
 				}
 
 				return false;
@@ -164,9 +161,8 @@ private:
 		auto upperBlock = a_ChunkInterface.GetBlock(a_BlockPos.addedY(1));
 		if (cBlockInfo::FullyOccupiesVoxel(upperBlock))
 		{
-			// At the moment, that single line will also do:
+			// Until the fix above is done, this line would also suffice:
 			// a_ChunkInterface.SetBlock(a_BlockPos, E_BLOCK_DIRT, 0);
-			// Testing :)
 			a_ChunkInterface.DoWithChunkAt(a_BlockPos, [&](cChunk & Chunk)
 			{
 				TurnToDirt(Chunk, a_BlockPos);

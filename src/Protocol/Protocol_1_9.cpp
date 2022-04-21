@@ -497,6 +497,26 @@ void cProtocol_1_9_0::SendPlayerMoveLook(void)
 	m_IsTeleportIdConfirmed = false;
 }
 
+void cProtocol_1_9_0::SendPlayerMoveLook(Vector3d a_RelPos)
+{
+	cRoot::Get()->BroadcastChat("Relative!");
+	ASSERT(m_State == 3);  // In game mode?
+
+	cPacketizer Pkt(*this, pktPlayerMoveLook);
+	cPlayer * Player = m_Client->GetPlayer();
+	Pkt.WriteBEDouble(a_RelPos.x);
+	Pkt.WriteBEDouble(a_RelPos.y);
+	Pkt.WriteBEDouble(a_RelPos.z);
+	Pkt.WriteBEFloat(0.0f);
+	Pkt.WriteBEFloat(0.0f);
+	Pkt.WriteBEUInt8(-1);
+
+	Pkt.WriteVarInt32(++m_OutstandingTeleportId);
+
+	// This teleport ID hasn't been confirmed yet
+	m_IsTeleportIdConfirmed = false;
+}
+
 
 
 

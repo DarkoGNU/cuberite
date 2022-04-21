@@ -205,6 +205,7 @@ public:  // tolua_export
 	void SendPlayerListUpdateGameMode   (const cPlayer & a_Player);
 	void SendPlayerListUpdatePing       ();
 	void SendPlayerMoveLook             (void);
+	void SendPlayerMoveLook             (Vector3d a_RelPos);
 	void SendPlayerPermissionLevel      (void);
 	void SendPlayerPosition             (void);
 	void SendPlayerSpawn                (const cPlayer & a_Player);
